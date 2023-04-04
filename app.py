@@ -20,7 +20,7 @@ from transformers_rec import (
 
 
 # Helper methods
-@st.cache
+@st.cache(ignore_hash=True, allow_output_mutation = True)
 def analyzer_engine(model_path: str):
     """Return AnalyzerEngine.
 
@@ -67,7 +67,7 @@ def analyzer_engine(model_path: str):
     return analyzer
 
 
-@st.cache
+@st.cache(ignore_hash=True, allow_output_mutation = True)
 def anonymizer_engine():
     """Return AnonymizerEngine."""
     return AnonymizerEngine()
@@ -79,7 +79,6 @@ def get_supported_entities():
     return analyzer_engine(st_model).get_supported_entities()
 
 
-@st.cache
 def analyze(**kwargs):
     """Analyze input using Analyzer engine and input arguments (kwargs)."""
     if "entities" not in kwargs or "All" in kwargs["entities"]:
