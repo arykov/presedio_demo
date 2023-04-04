@@ -20,7 +20,7 @@ from transformers_rec import (
 
 
 # Helper methods
-@st.cache(ignore_hash=True, allow_output_mutation = True)
+@st.cache(allow_output_mutation = True)
 def analyzer_engine(model_path: str):
     """Return AnalyzerEngine.
 
@@ -67,7 +67,7 @@ def analyzer_engine(model_path: str):
     return analyzer
 
 
-@st.cache(ignore_hash=True, allow_output_mutation = True)
+@st.cache(allow_output_mutation = True)
 def anonymizer_engine():
     """Return AnonymizerEngine."""
     return AnonymizerEngine()
