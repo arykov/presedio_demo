@@ -11,8 +11,8 @@ WORKDIR /code
 COPY ./requirements.txt /code/requirements.txt
 
 RUN pip3 install -r requirements.txt
-CMD python -m spacy download en_core_web_sm
-CMD python -m spacy download en_core_web_lg
+RUN pip3 install https://huggingface.co/spacy/en_core_web_sm/resolve/main/en_core_web_sm-any-py3-none-any.whl
+RUN pip3 install https://huggingface.co/spacy/en_core_web_lg/resolve/main/en_core_web_lg-any-py3-none-any.whl
 EXPOSE 7860
 
 COPY . /code
