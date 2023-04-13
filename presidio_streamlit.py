@@ -18,6 +18,8 @@ from transformers_rec import (
     BERT_DEID_CONFIGURATION,
 )
 
+from openai_fake_data_generator import *
+
 
 # Helper methods
 @st.cache_resource
