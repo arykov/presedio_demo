@@ -1,37 +1,33 @@
 import openai
-frmo typing import List
-from presidio_analyzer import RecognizerResult
-from presidio_anonymizer import AnonymizerEngine
 
-
-def set_openai_key(openai_key:string):
+def set_openai_key(openai_key: str):
     """Set the OpenAI API key.
     :param openai_key: the open AI key (https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key)
     """
     openai.api_key = openai_key
 
 
-def call_completion_model(prompt:str, model:str="text-davinci-003", max_tokens:int=512) ->str:
+def call_completion_model(
+    prompt: str, model: str = "text-davinci-003", max_tokens: int = 512
+) -> str:
     """Creates a request for the OpenAI Completion service and returns the response.
-    
+
     :param prompt: The prompt for the completion model
     :param model: OpenAI model name
-    :param temperature: Model's temperature parameter
+    :param max_tokens: Model's max_tokens parameter
     """
 
     response = openai.Completion.create(
-        model=model,
-        prompt= prompt,
-        max_tokens=max_tokens
+        model=model, prompt=prompt, max_tokens=max_tokens
     )
 
-    return response['choices'][0].text
+    return response["choices"][0].text
 
 
 def create_prompt(anonymized_text: str) -> str:
     """
     Create the prompt with instructions to GPT-3.
-    
+
     :param anonymized_text: Text with placeholders instead of PII values, e.g. My name is <PERSON>.
     """
 
