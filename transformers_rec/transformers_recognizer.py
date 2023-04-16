@@ -224,14 +224,18 @@ class TransformersRecognizer(EntityRecognizer):
         model_max_length = self.pipeline.tokenizer.model_max_length
         # calculate inputs based on the text
         text_length = len(text)
-        # split text into chunks
-        logger.info(
-            f"splitting the text into chunks, length {text_length} > {model_max_length*2}"
-        )
         predictions = list()
-        chunk_indexes = TransformersRecognizer.split_text_to_word_chunks(
-            text_length, self.chunk_length, self.text_overlap_length
-        )
+        if text_length > model_max_length*2:
+            # split text into chunks
+            logger.info(
+                f"splitting the text into chunks, length {text_length} > {model_max_length*2}"
+            )
+
+            chunk_indexes = TransformersRecognizer.split_text_to_word_chunks(
+                text_length, self.chunk_length, self.text_overlap_length
+            )
+        else:
+            chunk_indexes = [[0, text_length]]
 
         # iterate over text chunks and run inference
         for chunk_start, chunk_end in chunk_indexes:
